@@ -60,8 +60,8 @@ const images = [
   {
     id: 6,
     src: "/project6.png",
-    title: "Project 6",
-    url: "https://example-project-6.vercel.app/",
+    title: "Travel_service-ui",
+    url: "https://travel-service-ui.vercel.app/",
   },
 ];
 
