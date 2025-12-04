@@ -82,7 +82,7 @@ export default function About() {
       id="about"
       className="w-full  bg-neutral-900 relative overflow-hidden px-4 md:px-8 lg:px-12 xl:px-20 py-8 md:py-12 lg:py-16"
     >
-      <p className="text-white xl:hidden font-bebas tracking-widest rotate-90 text-4xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6 lg:mb-8">WHO AM I?</p>
+      <p className="text-white xl:hidden font-bebas tracking-widest xl:rotate-90 text-4xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6 lg:mb-8">WHO AM I?</p>
       <div className="w-full flex flex-col xl:flex-row gap-4 md:gap-6 lg:gap-8 mb-12 md:mb-16 lg:mb-20">
         {/* Left Side - Laptop Images */}
         <div className="w-full h-full lg:w-[55%] xl:w-[50%] flex gap-2 md:gap-7 lg:gap-10">

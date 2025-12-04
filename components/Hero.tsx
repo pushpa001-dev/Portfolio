@@ -70,7 +70,7 @@ const Hero = () => {
         .from(projectBtnRef.current, {
           opacity: 0,
           x: -20,
-          duration: 0.8,
+          duration: 0.5,
           ease: "power3.out",
         }, "-=0.2");
 
@@ -92,8 +92,8 @@ const Hero = () => {
   }, []);
 
   return (
-    <div ref={heroRef} id="hero" className='w-full h-screen sticky top-0 left-0 bg-black overflow-hidden '>
-      <section className="relative w-full h-screen bg-black overflow-hidden flex flex-col ">
+    <div ref={heroRef} id="hero" className='w-full h-screen lg:h-screen sticky top-0 left-0 bg-black overflow-hidden'>
+      <section className="relative w-full h-screen bg-black flex flex-col ">
         {/* Navigation */}
         <nav
           ref={navRef}
