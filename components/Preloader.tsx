@@ -17,7 +17,7 @@ export default function Preloader() {
                 tl.from(chars, {
                     y: 100,
                     opacity: 0,
-                    duration: 1,
+                    duration: 0.9,
                     stagger: 0.1,
                     ease: "power4.out",
                 });
@@ -27,7 +27,7 @@ export default function Preloader() {
                 y: "-100%",
                 duration: 0.5,
                 ease: "power4.inOut",
-                delay: 0.2,
+                delay: 0,
             });
         }, containerRef);
 

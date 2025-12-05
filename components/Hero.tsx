@@ -70,13 +70,13 @@ const Hero = () => {
         .from(projectBtnRef.current, {
           opacity: 0,
           x: -20,
-          duration: 0.5,
+          duration: 0.2,
           ease: "power3.out",
         }, "-=0.2");
 
       // Scroll Animation for Image
       gsap.to(heroRef.current, {
-        y: -100,
+        y: -50,
         ease: "none",
         scrollTrigger: {
           trigger: "#hero",
@@ -92,12 +92,12 @@ const Hero = () => {
   }, []);
 
   return (
-    <div ref={heroRef} id="hero" className='w-full h-screen lg:h-screen sticky top-0 left-0 bg-black overflow-hidden'>
-      <section className="relative w-full h-screen bg-black flex flex-col ">
+    <div ref={heroRef} id="hero" className='w-full h-screen sticky top-0 left-0 bg-black overflow-hidden'>
+      <section className="relative w-full h-full bg-black flex flex-col ">
         {/* Navigation */}
         <nav
           ref={navRef}
-          className="absolute top-0 left-0 w-[300px] md:w-[40vw] xl:w-[45vw] bg-neutral-500 rounded-br-[40px] px-6 md:px-12 py-6 flex justify-between items-center z-50"
+          className="absolute top-0 left-0 w-[300px] md:w-[40vw] xl:w-[45vw] bg-neutral-500 rounded-br-4xl lg:rounded-br-[40px] px-6 md:px-12 py-2 flex justify-between items-center z-50"
         >
           <div ref={navLogoRef} className="text-white font-bebas text-shadow-lg/10 text-3xl lg:text-4xl xl:text-6xl font-bold tracking-wide">
             PUSHPA
@@ -116,13 +116,13 @@ const Hero = () => {
             <h2 ref={frontendTextRef} className="text-white font-oswald text-2xl lg:text-6xl text-start w-full">
               FRONTEND-DEVELOPER
             </h2>
-            <h1 ref={nameTextRef} className="text-white font-bebas font-bold text-[25vw] md:text-[20vw] leading-[0.8]  text-center whitespace-nowrap">
+            <h1 ref={nameTextRef} className="text-white font-bebas font-bold text-[25vw] md:text-[20vw] xl:text-[14vw] leading-[0.8]  text-center whitespace-nowrap">
               PUSHPAHAS
             </h1>
           </div>
 
           {/* Person Image */}
-          <div className="absolute bottom-0 lg:bottom-[-23%] z-10 w-full flex justify-center items-end h-[60%] md:h-[85%] lg:h-[100%]  pointer-events-none">
+          <div className="absolute bottom-0 lg:bottom-[-23%] z-10 w-full flex justify-center items-end h-[75%] md:h-[85%] lg:h-[100%]  pointer-events-none">
             <div ref={imageRef} className="relative w-auto h-full aspect-[3/4] md:aspect-auto ">
               <Image
                 src="/pushpahas21.png"
@@ -171,14 +171,14 @@ const Hero = () => {
             <a
               ref={projectBtnRef}
               href="#projects"
-              className="hidden lg:flex bg-white group rounded-2xl text-black font-bebas text-xl lg:text-2xl px-6 py-2 hover:scale-105 hover:tracking-wide items-center gap-2 hover:bg-neutral-200 transition-all duration-300"
+              className=" hidden lg:flex bg-white group rounded-2xl text-black font-bebas text-xl lg:text-2xl px-6 py-2 hover:scale-105 hover:tracking-wide items-center gap-2 hover:bg-neutral-200 transition-all duration-300"
             >
               PROJECTS <span className="text-2xl group-hover:translate-x-2 transition-transform duration-300">→</span>
             </a>
           </div>
 
           {/* Mobile Layout Adjustments for CTA */}
-          <div className="lg:hidden absolute bottom-8 w-full flex flex-col items-center gap-4 z-30">
+          <div className="lg:hidden absolute bottom-20 w-full flex flex-col items-center gap-4 z-30">
             {/* <div className="text-white font-bebas text-lg text-center opacity-80">
             TAKE A LOOK AT MY PROJECTS
           </div> */}
@@ -192,7 +192,7 @@ const Hero = () => {
           </div>
 
         </div>
-        <div className='absolute z-10 text-[500px] font-bold rotate-45 top-[-40%] right-[-20] text-white font-bebas opacity-20'>
+        <div className='absolute  text-[500px] font-bold rotate-45 top-[-40%] right-[-20] text-white font-bebas  opacity-20'>
           <p>DI</p>
         </div>
       </section>
