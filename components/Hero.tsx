@@ -22,7 +22,8 @@ const Hero = () => {
   useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ delay: 2.5 }); // Delay for preloader
-      let mm = gsap.matchMedia();
+      // eslint-disable-next-line prefer-const
+      const mm = gsap.matchMedia();
       mm.add("(max-width: 799px)", () => {
 
         gsap.to(heroRef.current, {
