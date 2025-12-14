@@ -22,8 +22,33 @@ const Hero = () => {
   useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ delay: 2.5 }); // Delay for preloader
+      let mm = gsap.matchMedia();
+      mm.add("(max-width: 799px)", () => {
 
-      // Navbar Animation
+        gsap.to(heroRef.current, {
+        y: 0,
+        ease: "none",
+        scrollTrigger: {
+          trigger: "#hero",
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+});
+      mm.add("(min-width: 800px)", () => {
+        gsap.to(heroRef.current, {
+        y: -50,
+        ease: "none",
+        scrollTrigger: {
+          trigger: "#hero",
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+      });
+     
       tl.from(navRef.current, {
         scaleX: 0,
         transformOrigin: "left",
@@ -75,16 +100,7 @@ const Hero = () => {
         }, "-=0.2");
 
       // Scroll Animation for Image
-      gsap.to(heroRef.current, {
-        y: -50,
-        ease: "none",
-        scrollTrigger: {
-          trigger: "#hero",
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
+     
 
     });
 
@@ -112,17 +128,17 @@ const Hero = () => {
         <div className="relative w-full h-full flex flex-col items-center justify-center">
 
           {/* Background Text */}
-          <div className="absolute top-[45%] sm:top-[25%] lg:top-[35%] left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-0 gap-2 lg:gap-5">
+          <div className="absolute top-[35%] sm:top-[25%] lg:top-[35%] left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-0 gap-2 lg:gap-5">
             <h2 ref={frontendTextRef} className="text-white font-oswald text-2xl lg:text-6xl text-start w-full">
               FRONTEND-DEVELOPER
             </h2>
-            <h1 ref={nameTextRef} className="text-white font-bebas font-bold text-[25vw] md:text-[20vw] xl:text-[14vw] leading-[0.8]  text-center whitespace-nowrap">
+            <h1 ref={nameTextRef} className="text-white font-bebas font-bold text-[25vw] md:text-[20vw] xl:text-[14vwoo    ] leading-[0.8]  text-center whitespace-nowrap">
               PUSHPAHAS
             </h1>
           </div>
 
           {/* Person Image */}
-          <div className="absolute bottom-0 lg:bottom-[-23%] z-10 w-full flex justify-center items-end h-[75%] md:h-[85%] lg:h-[100%]  pointer-events-none">
+          <div className="absolute bottom-[0%] lg:bottom-[-23%] z-10 w-full flex justify-center items-end h-[75%] md:h-[85%] lg:h-[100%]  pointer-events-none">
             <div ref={imageRef} className="relative w-auto h-full aspect-[3/4] md:aspect-auto ">
               <Image
                 src="/pushpahas21.png"
