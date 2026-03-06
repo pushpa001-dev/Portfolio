@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FileLey | Student Portal</title>
+    <link rel="stylesheet" href="file.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Inline fixes for positioning and new button style */
+        .recent-searches {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #666;
+            text-align: center;
+        }
+
+        .recent-tag {
+            display: inline-block;
+            background: #eee;
+            padding: 2px 8px;
+            border-radius: 12px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        .hidden-card {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="navbar">
+        <img src="logo.png" alt="FileLey" class="nav-logo">
+        <nav class="nav-menu">
+            <a href="#home">Home</a>
+            <a href="#library">Library</a>
+        </nav>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </div>
+    </header>
+
+    <div class="ticker-wrap">
+        <div class="ticker">
+            A PROJECT BY TEAM HACK • A PROJECT BY TEAM HACK • A PROJECT BY TEAM HACK • A PROJECT BY TEAM HACK
+        </div>
+    </div>
+
+    <section id="home" class="hero-interface">
+        <img src="logo.png" alt="FileLey Hero" class="main-hero-logo">
+        <div class="hero-labels">
+            <span><i class="fas fa-search"></i> Search</span>
+            <span class="dot">•</span>
+            <span><i class="fas fa-download"></i> Download</span>
+            <span class="dot">•</span>
+            <span><i class="fas fa-book-open"></i> Learn</span>
+        </div>
+        <h1>Very Easily</h1>
+        <p class="tagline">FREE ACCESS to quality study material</p>
+        <br>
+        <p class="sub-tag">Building resources for students, by students</p>
+        <a href="#library" class="cta-btn">Explore Library ↓</a>
+    </section>
+
+    <section id="library" class="library-section">
+        <div class="lib-header">
+            <h2>📚 Document Library</h2>
+            <p>Model papers, timetables, and more - all in one place</p>
+        </div>
+
+        <div class="search-container">
+            <input type="text" id="docSearch" placeholder="🔍 Search documents, papers, timetables, notes..."
+                oninput="realTimeSearch()">
+            <button class="search-btn" onclick="executeSearch()"><i class="fas fa-search"></i></button>
+            <div id="recentSearches" class="recent-searches"></div>
+        </div>
+
+        <div class="filter-tabs">
+            <button class="tab active" data-filter="all">All</button>
+            <button class="tab" data-filter="syallabus">Syllabus</button>
+            <button class="tab" data-filter="timetable">Timetables</button>
+            <button class="tab" data-filter="model">Model Papers</button>
+            <button class="tab" data-filter="notice">Others</button>
+        </div>
+
+        <!-- Extra button below category buttons with the same design -->
+        <div style="display: flex; justify-content: center; margin-bottom: 20px;">
+            <button class="tab" id="allPdfsBtn" onclick="showAllAlphabetical()"><i class="fas fa-sort-alpha-down"></i>
+                All Pdf's</button>
+        </div>
+
+        <div class="category-grid" id="mainGrid"></div>
+
+        <div class="document-grid">
+            <div id="emptyState" class="empty-state" style="display:none;">No documents found matching your search.
+            </div>
+        </div>
+    </section>
+
+    <footer class="dark-footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <img src="logo.png" class="footer-logo" alt="Logo">
+                <p>Your one-stop platform for accessing quality study materials.</p>
+            </div>
+            <div class="footer-copyright">
+                © 2026 FILELEY - A PROJECT BY TEAM HACK.<br>
+                <span>ESWAR ARJUN | CHANDRA HAS | KISHAN CHOWDARY.</span>
+            </div>
+        </div>
+    </footer>
+
+    <button id="topBtn" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
+
+    <script>
+        // 1. THE JAVASCRIPT LIST (Database)
+        // Add your links here. Keywords in "category" automatically map to filters.
+        const pdfList = [
+            { title: "Data Structures", desc: "lab record", size: "16.7 MB", link: "https://drive.google.com/file/d/1usq-lumMjUghyYhZaknrDkL9Lv7e6kQu/view?usp=drive_link", category: "all", icon: "💻" },
+            { title: "IT Workshop", desc: "MANUAL", size: "17.7 MB", link: "https://drive.google.com/file/d/1ng00L_Uo-pU0sAqdFwINFW3n0wpDN4gW/view?usp=drive_link", category: "syallabus", icon: "🔢" },
+            { title: "Time Table", desc: "for It-01", size: "35 KB", link: "https://drive.google.com/file/d/1Mt9ePNSBekrJhhQkhO_R3o3P3aQABiX-/view?usp=drive_link", category: "timetable", icon: "📋" },
+            { title: "DS Assignment-1", desc: "Question Bank", size: "1.2 MB", link: "https://drive.google.com/file/d/1Eg0zkrPd4vd_510d1t9T9YhHjxTl4Iqm/view?usp=sharing", category: "notice", icon: "📋" },
+            { title: "Engineering Physics", desc: "Assignment-1", size: "2.5 MB", link: "https://drive.google.com/file/d/15kQRzcsu475bGAbPwSs3ejjbCB6GXsES/view?usp=sharing", category: "others", icon: "📋" },
+            { title: "BCME Lab Manual", desc: "LAB MANUAL", size: "35 KB", link: "https://drive.google.com/file/d/1woQ8VSIq7q00Pj0L-UVMz81Rs-DRtHAS/view?usp=sharing", category: "model", icon: "📋" },
+            { title: "DS Assignment-1 Answers", desc: "Assignment-1", size: "2.5 MB", link: "https://drive.google.com/file/d/1hQmw1_QyW-_PFcT0c6i7BAVw7nFaBDGi/view?usp=drive_link", category: "syllabus", icon: "📋" },
+            { title: "Physics Lab Manual", desc: "LAB MANUAL", size: "35 KB", link: "https://drive.google.com/file/d/1dJ6ncVragNobQd1tz2O3zbUOSa0kw5Gp/view?usp=sharing", category: "model", icon: "📋" },
+            { title: "PYQ's", desc: "Last Year Paper 26", size: "35 KB", link: "https://drive.google.com/file/d/1Im4hz9B7B0qvJKH3rEFLeKlLI4zDNOY-/view?usp=sharing", category: "others", icon: "📋" },
+            { title: "PYQ's", desc: "Last Year Paper 24", size: "35 KB", link: "https://drive.google.com/file/d/1LHSojgeSx3vqCQPwMp6sYhBjf8lCS9Zi/view?usp=sharing", category: "model", icon: "📋" }
+        ];
+
+        // 2. INITIALIZE WEBSITE
+        window.onload = () => {
+            renderPDFs(pdfList);
+        };
+
+        function renderPDFs(list) {
+            const grid = document.getElementById('mainGrid');
+            grid.innerHTML = '';
+            list.forEach(item => {
+                const card = `
+                    <div class="category-card" data-category="${item.category}">
+                        <div class="cat-icon">${item.icon}</div>
+                        <div class="cat-info">
+                            <h4>${item.title}</h4>
+                            <p>${item.desc}</p>
+                        </div>
+                        <div class="cat-download">
+                            <a href="${item.link}" class="dl-btn">📥</a>
+                            <span>${item.size}</span>
+                        </div>
+                    </div>`;
+                grid.innerHTML += card;
+            });
+        }
+
+        // 3. SEARCH & RECENT FEATURE
+        let recentSearches = [];
+
+        // Triggers instantly on input to perform real time search
+        function realTimeSearch() {
+            const query = document.getElementById('docSearch').value.toLowerCase().trim();
+            const activeTab = document.querySelector('.filter-tabs .tab.active');
+            const filter = activeTab ? activeTab.getAttribute('data-filter') : 'all';
+            filterAction(query, filter);
+        }
+
+        // Keep this for when search button is clicked or user submits
+        function executeSearch() {
+            const query = document.getElementById('docSearch').value.toLowerCase().trim();
+            if (query && !recentSearches.includes(query)) {
+                recentSearches.unshift(query);
+                if (recentSearches.length > 3) recentSearches.pop();
+                renderRecentTags();
+            }
+            realTimeSearch(); // Filter the view
+        }
+
+        function renderRecentTags() {
+            const container = document.getElementById('recentSearches');
+            container.innerHTML = 'Recent: ' + recentSearches.map(s => `<span class="recent-tag" onclick="quickSearch('${s}')">${s}</span>`).join('');
+        }
+
+        function quickSearch(val) {
+            document.getElementById('docSearch').value = val;
+            executeSearch();
+        }
+
+        // 4. FILTERING & SORTING
+        document.querySelectorAll('.filter-tabs .tab').forEach(tab => {
+            tab.onclick = function () {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+
+                // Re-sort to native order before applying filter
+                renderPDFs(pdfList);
+
+                realTimeSearch(); // Re-apply the current search typed
+            };
+        });
+
+        function filterAction(query = '', filter = 'all') {
+            const cards = document.querySelectorAll('.category-card:not(.all-pdfs-btn-card)');
+            let found = false;
+            cards.forEach(card => {
+                const text = card.innerText.toLowerCase();
+                const cat = card.getAttribute('data-category');
+                const match = text.includes(query) && (filter === 'all' || cat === filter);
+                card.classList.toggle('hidden-card', !match);
+                if (match) found = true;
+            });
+            document.getElementById('emptyState').style.display = found ? 'none' : 'block';
+        }
+
+        function showAllAlphabetical() {
+            const sortedList = [...pdfList].sort((a, b) => a.title.localeCompare(b.title));
+            renderPDFs(sortedList);
+
+            // Re-apply any active search query over the newly sorted list
+            const query = document.getElementById('docSearch').value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.category-card');
+            let found = false;
+            cards.forEach(card => {
+                const text = card.innerText.toLowerCase();
+                const match = text.includes(query);
+                card.classList.toggle('hidden-card', !match);
+                if (match) found = true;
+            });
+            document.getElementById('emptyState').style.display = found ? 'none' : 'block';
+
+            // Reset filters to show all, activate "All Pdf's" purely visually
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('allPdfsBtn').classList.add('active');
+        }
+
+        function toggleMenu() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+            document.querySelector('.hamburger').classList.toggle('active');
+        }
+
+        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    </script>
+</body>
+
+</html>
